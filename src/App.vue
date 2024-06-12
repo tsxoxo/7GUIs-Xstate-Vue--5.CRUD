@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import Counter from './Counter.vue'
+import CRUD from './CRUD.vue'
 </script>
 
 <template>
-  <Counter />
+  <CRUD />
 </template>
