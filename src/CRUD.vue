@@ -2,7 +2,7 @@
 import { useMachine } from '@xstate/vue'
 import { crudMachine } from './crudMachine'
 import { createBrowserInspector } from '@statelyai/inspect'
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 
 const { inspect } = createBrowserInspector({
   // Comment out the line below to start the inspector
@@ -13,8 +13,15 @@ const { snapshot, send } = useMachine(crudMachine, {
   inspect
 })
 
-const selected = ref(0)
+const selectedID = ref(0)
 const filter = ref('')
+const surname = ref('')
+const name = ref('')
+
+watch(selectedID, newID => {
+  surname.value = snapshot.value.context.people[newID].surname
+  name.value = snapshot.value.context.people[newID].name
+})
 
 const filteredNames = computed(
   () => {
@@ -33,7 +40,7 @@ const filteredNames = computed(
         </label>
       </div>
       <div id="names-list">
-        <select v-model="selected" id="people" name="people" size="10">
+        <select v-model="selectedID" id="people" name="people" size="10">
           <option v-for="(person, index) in filteredNames" :value="index"> {{ person.surname }}, {{
             person.name }} </option>
         </select>
@@ -41,11 +48,11 @@ const filteredNames = computed(
       <div id="names-edit-fields">
         <label>
           Surname:
-          <input type="text" name="surname" />
+          <input v-model="surname" type="text" name="surname" />
         </label>
         <label>
           Name:
-          <input type="text" name="name" />
+          <input v-model="name" type="text" name="name" />
         </label>
       </div>
 
