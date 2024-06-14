@@ -29,7 +29,16 @@ const name = ref('')
 
 const isValidPersonNaming = computed(
   () =>
-    (surname.value.trim() !== "" && name.value.trim() !== "") ? true : false)
+    (surname.value.trim() !== "" && name.value.trim() !== "") ? true : false
+)
+// const hasPersonNamingChanged = computed(
+//   () => {
+//     if (selectedPerson.value === 'deselected') return
+
+//     return (selectedPerson.value.surname !== surname.value || selectedPerson.value.name !== name.value) ? true : false
+//   }
+// )
+const haveNamesChanged = () => (((selectedPerson.value as Person).surname !== surname.value || (selectedPerson.value as Person).name !== name.value) ? true : false)
 
 watch(() => snapshot.value.context.people, () =>
   selectedPerson.value = "deselected"
@@ -77,7 +86,7 @@ watch(selectedPerson, newValue => {
         <button :disabled="!isValidPersonNaming" @click="send({ type: 'CREATE', surname, name })">
           Create
         </button>
-        <button :disabled="!isValidPersonNaming || selectedPerson === 'deselected'"
+        <button :disabled="!isValidPersonNaming || selectedPerson === 'deselected' || !haveNamesChanged()"
           @click="send({ type: 'UPDATE', id: (selectedPerson as Person).id, surname, name })">
           Update
         </button>
