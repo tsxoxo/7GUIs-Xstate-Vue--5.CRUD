@@ -1,11 +1,6 @@
 
-import { setup, assign } from 'xstate'
-
-interface Person {
-  name: string;
-  surname: string;
-  id: number;
-}
+import { setup, assign, assertEvent } from 'xstate'
+import type { Person } from './types'
 
 const INITIAL_PEOPLE: Person[] = [
   {
@@ -37,6 +32,8 @@ export const crudMachine = setup({
   },
   "actions": {
     "create": assign(({ context, event }) => {
+      assertEvent(event, 'CREATE');
+
       const newPerson = {
         surname: event.surname,
         name: event.name,
@@ -49,6 +46,8 @@ export const crudMachine = setup({
     }
     ),
     "update": assign(({ context, event }) => {
+      assertEvent(event, 'UPDATE');
+
       const updatedPerson = {
         surname: event.surname,
         name: event.name,
@@ -60,6 +59,8 @@ export const crudMachine = setup({
     }
     ),
     "delete": assign(({ context, event }) => {
+      assertEvent(event, 'DELETE');
+
       return {
         people: context.people.toSpliced(context.people.findIndex((el: Person) => el.id === event.id), 1),
       }

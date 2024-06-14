@@ -3,6 +3,8 @@ import { useMachine } from '@xstate/vue'
 import { crudMachine } from './crudMachine'
 import { createBrowserInspector } from '@statelyai/inspect'
 import { computed, ref, watch } from 'vue'
+import type { Ref } from 'vue'
+import type { Person } from './types'
 
 const { inspect } = createBrowserInspector({
   // Comment out the line below to start the inspector
@@ -13,18 +15,22 @@ const { snapshot, send } = useMachine(crudMachine, {
   inspect
 })
 
-const selectedPerson = ref("deselected")
+const selectedPerson: Ref<"deselected" | Person> = ref("deselected")
+
 const filter = ref('')
 const filteredNames = computed(
   () => {
     return snapshot.value.context.people.filter((person) => person.surname.toLowerCase().startsWith(filter.value.toLowerCase()))
   }
 )
+
 const surname = ref('')
 const name = ref('')
+
 const isValidPersonNaming = computed(
   () =>
     (surname.value.trim() !== "" && name.value.trim() !== "") ? true : false)
+
 watch(() => snapshot.value.context.people, () =>
   selectedPerson.value = "deselected"
 )
@@ -35,8 +41,8 @@ watch(selectedPerson, newValue => {
     return
   }
 
-  surname.value = newValue.surname
-  name.value = newValue.name
+  surname.value = (newValue as Person)!.surname
+  name.value = (newValue as Person).name
 })
 </script>
 
@@ -71,11 +77,12 @@ watch(selectedPerson, newValue => {
         <button :disabled="!isValidPersonNaming" @click="send({ type: 'CREATE', surname, name })">
           Create
         </button>
-        <button :disabled="!isValidPersonNaming || selectedPerson === ' deselected'"
-          @click="send({ type: 'UPDATE', id: selectedPerson.id, surname, name })">
+        <button :disabled="!isValidPersonNaming || selectedPerson === 'deselected'"
+          @click="send({ type: 'UPDATE', id: (selectedPerson as Person).id, surname, name })">
           Update
         </button>
-        <button :disabled="selectedPerson === ' deselected'" @click="send({ type: 'DELETE', id: selectedPerson.id })">
+        <button :disabled="selectedPerson === 'deselected'"
+          @click="send({ type: 'DELETE', id: (selectedPerson as Person).id })">
           Delete
         </button>
       </div>
@@ -102,7 +109,6 @@ select {
 
 * {
   font-size: 18px;
-
   padding: 3px;
 }
 
