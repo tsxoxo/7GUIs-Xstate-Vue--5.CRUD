@@ -57,7 +57,7 @@ const filteredNames = computed(
       </div>
 
       <div id="buttons">
-        <button @click="send({ type: 'CREATE' })">
+        <button @click="send({ type: 'CREATE', person: { surname, name } })">
           Create
         </button>
         <button @click="send({ type: 'UPDATE' })">

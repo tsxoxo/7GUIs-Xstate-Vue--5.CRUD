@@ -33,7 +33,7 @@ export const crudMachine = setup({
   "actions": {
     "create": assign(({ context, event }) => {
       return {
-        people: context.people.toSpliced(-1, 1, event.person),
+        people: context.people.toSpliced(context.people.length, 0, event.person),
       }
     }
     ),
