@@ -2,6 +2,7 @@
 import { useMachine } from '@xstate/vue'
 import { crudMachine } from './crudMachine'
 import { createBrowserInspector } from '@statelyai/inspect'
+import { computed, ref } from 'vue'
 
 const { inspect } = createBrowserInspector({
   // Comment out the line below to start the inspector
@@ -11,6 +12,15 @@ const { inspect } = createBrowserInspector({
 const { snapshot, send } = useMachine(crudMachine, {
   inspect
 })
+
+const selected = ref(0)
+const filter = ref('')
+
+const filteredNames = computed(
+  () => {
+    return snapshot.value.context.people.filter((person) => person.surname.toLowerCase().startsWith(filter.value.toLowerCase()))
+  }
+)
 </script>
 
 <template>
@@ -19,12 +29,13 @@ const { snapshot, send } = useMachine(crudMachine, {
       <div id="filter-prefix">
         <label>
           Filter prefix:
-          <input type="text" name="filter" />
+          <input v-model="filter" type="text" name="filter" />
         </label>
       </div>
       <div id="names-list">
-        <select id="people" name="people" size="10">
-          <option v-for="person in snapshot.context.people"> {{ person.surname }}, {{ person.name }} </option>
+        <select v-model="selected" id="people" name="people" size="10">
+          <option v-for="(person, index) in filteredNames" :value="index"> {{ person.surname }}, {{
+            person.name }} </option>
         </select>
       </div>
       <div id="names-edit-fields">
