@@ -31,13 +31,6 @@ const isValidPersonNaming = computed(
   () =>
     (surname.value.trim() !== "" && name.value.trim() !== "") ? true : false
 )
-// const hasPersonNamingChanged = computed(
-//   () => {
-//     if (selectedPerson.value === 'deselected') return
-
-//     return (selectedPerson.value.surname !== surname.value || selectedPerson.value.name !== name.value) ? true : false
-//   }
-// )
 const haveNamesChanged = () => (((selectedPerson.value as Person).surname !== surname.value || (selectedPerson.value as Person).name !== name.value) ? true : false)
 
 watch(() => snapshot.value.context.people, () =>
