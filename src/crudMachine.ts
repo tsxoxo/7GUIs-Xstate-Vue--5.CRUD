@@ -4,48 +4,64 @@ import { setup, assign } from 'xstate'
 interface Person {
   name: string;
   surname: string;
+  id: number;
 }
 
 const INITIAL_PEOPLE: Person[] = [
   {
     name: "Joe",
-    surname: "Shmoe"
+    surname: "aShmoe",
+    id: 0,
   },
   {
     name: "Linda",
-    surname: "Shminda"
+    surname: "aShminda",
+    id: 1,
   },
   {
     name: "Brett",
-    surname: "Shmett"
+    surname: "Shmett",
+    id: 2,
   },
   {
     name: "Eve",
-    surname: "Shmeve"
+    surname: "Shmeve",
+    id: 3,
   },
 ]
 
 export const crudMachine = setup({
   "types": {
-    "context": {} as { 'people': Person[] },
-    "events": {} as { type: 'DELETE', id: number } | { type: 'UPDATE', id: number, person: Person } | { type: 'CREATE', person: Person }
+    "context": {} as { 'people': Person[], lastID: number },
+    "events": {} as { type: 'DELETE', id: number } | { type: 'UPDATE', id: number, surname: string, name: string } | { type: 'CREATE', surname: string, name: string }
   },
   "actions": {
     "create": assign(({ context, event }) => {
+      const newPerson = {
+        surname: event.surname,
+        name: event.name,
+        id: context.lastID + 1
+      }
       return {
-        people: context.people.toSpliced(context.people.length, 0, event.person),
+        people: context.people.toSpliced(context.people.length, 0, newPerson),
+        lastID: context.lastID + 1
       }
     }
     ),
     "update": assign(({ context, event }) => {
+      const updatedPerson = {
+        surname: event.surname,
+        name: event.name,
+        id: event.id
+      }
       return {
-        people: context.people.toSpliced(event.id, 1, event.person),
+        people: context.people.toSpliced(context.people.findIndex((el: Person) => el.id === event.id), 1, updatedPerson),
       }
     }
     ),
     "delete": assign(({ context, event }) => {
       return {
-        people: context.people.toSpliced(event.id, 1),
+        people: context.people.toSpliced(context.people.findIndex((el: Person) => el.id === event.id), 1),
       }
     }
     )
@@ -53,7 +69,8 @@ export const crudMachine = setup({
 })
   .createMachine({
     "context": {
-      "people": INITIAL_PEOPLE
+      "people": INITIAL_PEOPLE,
+      "lastID": INITIAL_PEOPLE.length - 1
     },
     "id": "CRUD",
     "initial": "ready",

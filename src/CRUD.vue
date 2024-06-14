@@ -13,21 +13,31 @@ const { snapshot, send } = useMachine(crudMachine, {
   inspect
 })
 
-const selectedID = ref(0)
+const selectedPerson = ref("deselected")
 const filter = ref('')
-const surname = ref('')
-const name = ref('')
-
-watch(selectedID, newID => {
-  surname.value = snapshot.value.context.people[newID].surname
-  name.value = snapshot.value.context.people[newID].name
-})
-
 const filteredNames = computed(
   () => {
     return snapshot.value.context.people.filter((person) => person.surname.toLowerCase().startsWith(filter.value.toLowerCase()))
   }
 )
+const surname = ref('')
+const name = ref('')
+const isValidPersonNaming = computed(
+  () =>
+    (surname.value.trim() !== "" && name.value.trim() !== "") ? true : false)
+watch(() => snapshot.value.context.people, () =>
+  selectedPerson.value = "deselected"
+)
+watch(selectedPerson, newValue => {
+  if (selectedPerson.value === "deselected") {
+    surname.value = ""
+    name.value = ""
+    return
+  }
+
+  surname.value = newValue.surname
+  name.value = newValue.name
+})
 </script>
 
 <template>
@@ -40,30 +50,32 @@ const filteredNames = computed(
         </label>
       </div>
       <div id="names-list">
-        <select v-model="selectedID" id="people" name="people" size="10">
-          <option v-for="(person, index) in filteredNames" :value="index"> {{ person.surname }}, {{
+        <select v-model="selectedPerson" id="people" name="people" size="10">
+          <!-- <option disabled value=""deselected"">Please select one</option> -->
+          <option v-for="(person) in filteredNames" :value="person"> {{ person.surname }}, {{
             person.name }} </option>
         </select>
       </div>
       <div id="names-edit-fields">
         <label>
           Surname:
-          <input v-model="surname" type="text" name="surname" />
+          <input v-model.trim="surname" type="text" name="surname" />
         </label>
         <label>
           Name:
-          <input v-model="name" type="text" name="name" />
+          <input v-model.trim="name" type="text" name="name" />
         </label>
       </div>
 
       <div id="buttons">
-        <button @click="send({ type: 'CREATE', person: { surname, name } })">
+        <button :disabled="!isValidPersonNaming" @click="send({ type: 'CREATE', surname, name })">
           Create
         </button>
-        <button @click="send({ type: 'UPDATE', id: selectedID, person: { surname, name } })">
+        <button :disabled="!isValidPersonNaming || selectedPerson === ' deselected'"
+          @click="send({ type: 'UPDATE', id: selectedPerson.id, surname, name })">
           Update
         </button>
-        <button @click="send({ type: 'DELETE' })">
+        <button :disabled="selectedPerson === ' deselected'" @click="send({ type: 'DELETE', id: selectedPerson.id })">
           Delete
         </button>
       </div>
