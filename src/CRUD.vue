@@ -16,15 +16,81 @@ const { snapshot, send } = useMachine(crudMachine, {
 <template>
   <div class="frame center-children">
     <main>
-      <select id="people" name="people" size="10">
+      <div id="filter-prefix">
+        <label>
+          Filter prefix:
+          <input type="text" name="filter" />
+        </label>
+      </div>
+      <div id="names-list">
+        <select id="people" name="people" size="10">
+          <option v-for="person in snapshot.context.people"> {{ person.surname }}, {{ person.name }} </option>
+        </select>
+      </div>
+      <div id="names-edit-fields">
+        <label>
+          Surname:
+          <input type="text" name="surname" />
+        </label>
+        <label>
+          Name:
+          <input type="text" name="name" />
+        </label>
+      </div>
 
-        <option v-for="person in snapshot.context.people"> {{ person.surname }}, {{ person.name }} </option>
-      </select>
-      <p>{{ snapshot.context.people }}</p>
-      <button @click="send({ type: 'increase' })">
-      </button>
+      <div id="buttons">
+        <button @click="send({ type: 'CREATE' })">
+          Create
+        </button>
+        <button @click="send({ type: 'UPDATE' })">
+          Update
+        </button>
+        <button @click="send({ type: 'DELETE' })">
+          Delete
+        </button>
+      </div>
     </main>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+main {
+  padding: 32px;
+  display: grid;
+  height: 360px;
+  grid-template-rows: min-content 1fr min-content;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "fp ."
+    "nl nef"
+    "b b"
+}
+
+select {
+  width: 100%;
+}
+
+* {
+  font-size: 18px;
+
+  padding: 3px;
+}
+
+#filter-prefix {
+  grid-area: fp;
+}
+
+#names-list {
+  grid-area: nl;
+}
+
+#names-edit-fields {
+  grid-area: nef;
+}
+
+#buttons {
+  grid-area: b;
+  display: flex;
+  gap: 32px;
+}
+</style>
