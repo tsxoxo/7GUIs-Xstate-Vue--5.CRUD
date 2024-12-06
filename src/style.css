@@ -10,9 +10,23 @@
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
     font-weight: 400;
-    --color-primary: #40e0d0;
     --color-app: #babeb3;
     --color-frame: #d5dcc7;
+    --color-input-bg: #eef0e4;
+    --color-input-text: hsla(84 25% 16% 0.8);
+    --display-bg: linear-gradient(
+            180deg,
+            rgba(60, 82, 31, 0.2) 0%,
+            rgba(91, 118, 58, 0.2) 5.11%,
+            rgba(39, 57, 16, 0.2) 100%
+        ),
+        #24281e;
+    --color-display-text: #9eba5f;
+    --color-button-text: var(--color-input-bg);
+    --color-create-button-bg: #659263;
+    --color-update-button-bg: #6a9eaa;
+    --color-delete-button-bg: #dc7365;
+    --color-delete-button-text: #4b4f44;
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -26,6 +40,7 @@ body {
     min-width: 320px;
     min-height: 100vh;
     background: var(--color-app);
+    color: var(--color-input-text);
 }
 
 .center-children {
@@ -35,7 +50,8 @@ body {
 }
 
 * {
-    font-size: 18px;
+    font-size: 16px;
+    text-transform: capitalize;
 }
 
 main {
@@ -47,14 +63,20 @@ main {
 }
 
 label {
+    font-size: 12px;
     display: flex;
     flex-direction: column;
 }
 
+input {
+    background: var(--color-input-bg);
+    border: none;
+}
+
 select {
     width: 100%;
-    background: black;
-    color: white;
+    background: var(--display-bg);
+    color: var(--color-display-text);
 }
 
 #surname-and-name {
@@ -68,6 +90,24 @@ select {
 }
 
 #create-and-update {
+    display: flex;
+    gap: 6px;
+}
+
+button {
+    /* background: var(--color-create-button-bg); */
+    color: var(--color-button-text);
+}
+
+#button-create {
+    background-color: var(--color-create-button-bg);
+}
+#button-update {
+    background-color: var(--color-update-button-bg);
+}
+#button-delete {
+    background-color: var(--color-delete-button-bg);
+    color: var(--color-delete-button-text);
 }
 
 /* Initial, grid-based design as shown on screenshot in 7GUIs instructions */

@@ -76,17 +76,18 @@ watch(selectedPerson, newValue => {
 
     <div id="buttons">
       <div id="create-and-update">
-        <button :disabled="!isValidPersonNaming" @click="send({ type: 'CREATE', surname, name })">
+        <button id="button-create" :disabled="!isValidPersonNaming" @click="send({ type: 'CREATE', surname, name })">
           Create
         </button>
-        <button :disabled="!isValidPersonNaming || selectedPerson === 'deselected' || !haveNamesChanged()"
+        <button id="button-update"
+          :disabled="!isValidPersonNaming || selectedPerson === 'deselected' || !haveNamesChanged()"
           @click="send({ type: 'UPDATE', id: (selectedPerson as Person).id, surname, name })">
           Update
         </button>
       </div>
-      <button :disabled="selectedPerson === 'deselected'"
+      <button id="button-delete" :disabled="selectedPerson === 'deselected'"
         @click="send({ type: 'DELETE', id: (selectedPerson as Person).id })">
-        Delete
+        Del
       </button>
     </div>
   </main>
