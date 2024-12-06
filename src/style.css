@@ -1,34 +1,102 @@
 *,
 *::before,
 *::after {
-  position: relative;
-  box-sizing: border-box;
-  margin: 0;
+    position: relative;
+    box-sizing: border-box;
+    margin: 0;
 }
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  --color-primary: #40e0d0;
-  --color-bg: #9CA58A;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    --color-primary: #40e0d0;
+    --color-app: #babeb3;
+    --color-frame: #d5dcc7;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
 }
 
 body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-  background: var(--color-bg);
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    background: var(--color-app);
 }
 
 .center-children {
-  display: flex;
-  place-content: center;
-  place-items: center;
+    display: flex;
+    place-content: center;
+    place-items: center;
 }
+
+* {
+    font-size: 18px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    height: 517px;
+    padding: 8px 16px;
+    background-color: var(--color-frame);
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+}
+
+select {
+    width: 100%;
+    background: black;
+    color: white;
+}
+
+#surname-and-name {
+    display: flex;
+    flex-direction: column;
+}
+
+#buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+#create-and-update {
+}
+
+/* Initial, grid-based design as shown on screenshot in 7GUIs instructions */
+/* main {
+  padding: 32px;
+  display: grid;
+  height: 360px;
+  grid-template-rows: min-content 1fr min-content;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "fp ."
+    "nl nef"
+    "b b"
+} */
+
+/* #filter-prefix {
+  grid-area: fp;
+}
+
+#names-list {
+  grid-area: nl;
+}
+
+#names-edit-fields {
+  grid-area: nef;
+}
+
+#buttons {
+  grid-area: b;
+  display: flex;
+  gap: 32px;
+} */

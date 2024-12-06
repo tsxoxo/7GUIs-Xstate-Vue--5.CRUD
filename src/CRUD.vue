@@ -49,33 +49,33 @@ watch(selectedPerson, newValue => {
 </script>
 
 <template>
-  <div class="frame center-children">
-    <main>
-      <div id="filter-prefix">
+  <main>
+    <div id="inputs-and-display">
+      <div id="filter">
         <label>
-          Filter prefix:
+          Filter prefix
           <input v-model="filter" type="text" name="filter" />
         </label>
       </div>
-      <div id="names-list">
-        <select v-model="selectedPerson" id="people" name="people" size="10">
-          <!-- <option disabled value=""deselected"">Please select one</option> -->
-          <option v-for="(person) in filteredNames" :value="person"> {{ person.surname }}, {{
-            person.name }} </option>
-        </select>
-      </div>
-      <div id="names-edit-fields">
+      <select v-model="selectedPerson" id="display" name="people" size="10">
+        <!-- <option disabled value=""deselected"">Please select one</option> -->
+        <option v-for="(person) in filteredNames" :value="person"> {{ person.surname }}, {{
+          person.name }} </option>
+      </select>
+      <div id="surname-and-name">
         <label>
-          Surname:
+          Surname
           <input v-model.trim="surname" type="text" name="surname" />
         </label>
         <label>
-          Name:
+          Name
           <input v-model.trim="name" type="text" name="name" />
         </label>
       </div>
+    </div>
 
-      <div id="buttons">
+    <div id="buttons">
+      <div id="create-and-update">
         <button :disabled="!isValidPersonNaming" @click="send({ type: 'CREATE', surname, name })">
           Create
         </button>
@@ -83,52 +83,11 @@ watch(selectedPerson, newValue => {
           @click="send({ type: 'UPDATE', id: (selectedPerson as Person).id, surname, name })">
           Update
         </button>
-        <button :disabled="selectedPerson === 'deselected'"
-          @click="send({ type: 'DELETE', id: (selectedPerson as Person).id })">
-          Delete
-        </button>
       </div>
-    </main>
-  </div>
+      <button :disabled="selectedPerson === 'deselected'"
+        @click="send({ type: 'DELETE', id: (selectedPerson as Person).id })">
+        Delete
+      </button>
+    </div>
+  </main>
 </template>
-
-<style scoped>
-main {
-  padding: 32px;
-  display: grid;
-  height: 360px;
-  grid-template-rows: min-content 1fr min-content;
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas:
-    "fp ."
-    "nl nef"
-    "b b"
-}
-
-select {
-  width: 100%;
-}
-
-* {
-  font-size: 18px;
-  padding: 3px;
-}
-
-#filter-prefix {
-  grid-area: fp;
-}
-
-#names-list {
-  grid-area: nl;
-}
-
-#names-edit-fields {
-  grid-area: nef;
-}
-
-#buttons {
-  grid-area: b;
-  display: flex;
-  gap: 32px;
-}
-</style>
