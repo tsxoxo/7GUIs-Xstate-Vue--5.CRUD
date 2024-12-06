@@ -14,13 +14,14 @@
     --color-frame: #d5dcc7;
     --color-input-bg: #eef0e4;
     --color-input-text: hsla(84 25% 16% 0.8);
+    --color-display-bg: #24281e;
     --display-bg: linear-gradient(
             180deg,
             rgba(60, 82, 31, 0.2) 0%,
             rgba(91, 118, 58, 0.2) 5.11%,
             rgba(39, 57, 16, 0.2) 100%
         ),
-        #24281e;
+        var(--color-display-bg);
     --color-display-text: #9eba5f;
     --color-button-text: var(--color-input-bg);
     --color-create-button-bg: #659263;
@@ -51,37 +52,80 @@ body {
 
 * {
     font-size: 16px;
-    text-transform: capitalize;
+    text-transform: uppercase;
 }
 
 main {
     display: flex;
     flex-direction: column;
+    justify-content: safe;
+    gap: 16px;
     height: 517px;
+    width: 288px;
     padding: 8px 16px;
     background-color: var(--color-frame);
+}
+
+#inputs-and-display {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1 1 auto;
 }
 
 label {
     font-size: 12px;
     display: flex;
     flex-direction: column;
+    gap: 2px;
 }
 
 input {
     background: var(--color-input-bg);
+    padding: 8px 12px;
     border: none;
 }
 
-select {
+#display {
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    margin: 0;
     width: 100%;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: inherit;
+    line-height: inherit;
+    flex: 1 1 auto;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
     background: var(--display-bg);
     color: var(--color-display-text);
+    overflow: auto;
+}
+
+#display:focus {
+    outline: none;
+}
+
+option {
+    padding: 4px;
+}
+
+option:checked,
+option:focus,
+option:focus-visible,
+option:active {
+    background-color: var(--color-display-text);
+    color: var(--color-display-bg);
 }
 
 #surname-and-name {
     display: flex;
     flex-direction: column;
+    gap: 12px;
 }
 
 #buttons {
@@ -96,7 +140,9 @@ select {
 
 button {
     /* background: var(--color-create-button-bg); */
+    padding: 10px 12px;
     color: var(--color-button-text);
+    border: none;
 }
 
 #button-create {
