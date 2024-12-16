@@ -5,12 +5,12 @@ import type { Person } from './types'
 const INITIAL_PEOPLE: Person[] = [
   {
     name: "Joe",
-    surname: "aShmoe",
+    surname: "Shmoe",
     id: 0,
   },
   {
     name: "Linda",
-    surname: "aShminda",
+    surname: "Shminda",
     id: 1,
   },
   {
@@ -22,6 +22,41 @@ const INITIAL_PEOPLE: Person[] = [
     name: "Eve",
     surname: "Shmeve",
     id: 3,
+  },
+  {
+    name: "Emeterius",
+    surname: "Annette",
+    id: 4,
+  },
+  {
+    name: "Hiacynta",
+    surname: "Fritiof",
+    id: 5,
+  },
+  {
+    name: "Hampus",
+    surname: "Paavo",
+    id: 6,
+  },
+  {
+    name: "Von Ingersleben",
+    surname: "Phuntso",
+    id: 7,
+  },
+  {
+    name: "Paul",
+    surname: "Vijaya",
+    id: 8,
+  },
+  {
+    name: "Amit",
+    surname: "Kranz",
+    id: 9,
+  },
+  {
+    name: "Henrik",
+    surname: "Blakely",
+    id: 10,
   },
 ]
 
