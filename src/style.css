@@ -25,6 +25,8 @@
         ),
         var(--display-bg-base);
     --display-text: #9eba5f;
+    --display-scrollbar-thumb: #5b684a;
+    --display-scrollbar-track: #a0aa93;
     --button-text: var(--input-unfocused-bg);
     --buttons-disabled: #b6b7b0;
     --create-button-bg: #659263;
@@ -112,6 +114,8 @@ input:focus {
     gap: 2px;
     background: var(--display-bg);
     overflow: auto;
+    scrollbar-color: var(--display-scrollbar-thumb)
+        var(--display-scrollbar-track);
 }
 
 #display:focus {
