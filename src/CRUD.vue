@@ -70,7 +70,7 @@ watch(selectedPerson, newValue => {
           <input v-model="filter" type="text" name="filter" />
         </label>
       </div>
-      <select v-model="selectedPerson" id="display" name="people" size="9">
+      <select v-model="selectedPerson" id="display" name="people" size="2">
         <!-- <option disabled value=""deselected"">Please select one</option> -->
         <option v-for="(person) in filteredNames.toSorted(sortPersonsBySurnameThenName)" :value="person"> {{
           person.surname }}, {{
