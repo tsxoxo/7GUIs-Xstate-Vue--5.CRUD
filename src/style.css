@@ -16,6 +16,12 @@
     font-weight: 400;
     src: url(../public/fonts/RobotoMono-Regular.ttf) format("woff2");
 }
+@font-face {
+    font-family: "Roboto Mono";
+    font-style: normal;
+    font-weight: 500;
+    src: url(../public/fonts/RobotoMono-Medium.ttf) format("woff2");
+}
 
 *,
 *::before,
@@ -201,7 +207,7 @@ option:active {
 button {
     /* background: var(--create-button-bg); */
     font-family: inherit;
-    font-weight: 600;
+    font-weight: 500;
     padding: 10px 12px;
     color: var(--button-text);
     border: none;
