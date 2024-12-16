@@ -26,6 +26,7 @@
         var(--display-bg-base);
     --display-text: #9eba5f;
     --button-text: var(--input-unfocused-bg);
+    --buttons-disabled: #b6b7b0;
     --create-button-bg: #659263;
     --update-button-bg: #6a9eaa;
     --delete-button-bg: #dc7365;
@@ -159,7 +160,7 @@ button:focus {
 }
 
 button:disabled {
-    background-color: #babeb3 !important;
+    background-color: var(--buttons-disabled) !important;
 }
 
 #button-create {
