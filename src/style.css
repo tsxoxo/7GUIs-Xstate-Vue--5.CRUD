@@ -7,7 +7,7 @@
 }
 
 :root {
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-family: "Roboto Mono", system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
     font-weight: 400;
     --app: #babeb3;
@@ -83,12 +83,16 @@ main {
 
 label {
     font-size: 12px;
+    font-family: Inter, sans-serif;
+    font-weight: 400;
     display: flex;
     flex-direction: column;
     gap: 2px;
 }
 
 input {
+    font-family: inherit;
+    font-weight: bold;
     background: var(--input-unfocused-bg);
     padding: 8px 12px;
     border: none;
@@ -172,6 +176,8 @@ option:active {
 
 button {
     /* background: var(--create-button-bg); */
+    font-family: inherit;
+    font-weight: 600;
     padding: 10px 12px;
     color: var(--button-text);
     border: none;
