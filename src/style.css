@@ -88,6 +88,7 @@ input {
 
 #display {
     appearance: none;
+    -webkit-appearance: none;
     background-color: transparent;
     border: none;
     margin: 0;
@@ -102,7 +103,6 @@ input {
     flex-direction: column;
     gap: 2px;
     background: var(--display-bg);
-    color: var(--color-display-text);
     overflow: auto;
 }
 
@@ -112,14 +112,19 @@ input {
 
 option {
     padding: 4px;
+    color: var(--color-display-text);
 }
 
 option:checked,
 option:focus,
 option:focus-visible,
 option:active {
-    background-color: var(--color-display-text);
-    color: var(--color-display-bg);
+    /* background-color: var(--color-display-text); */
+    background: linear-gradient(
+        var(--color-display-text),
+        var(--color-display-text)
+    );
+    color: rgb(16, 16, 16) !important;
 }
 
 #surname-and-name {
@@ -143,6 +148,10 @@ button {
     padding: 10px 12px;
     color: var(--color-button-text);
     border: none;
+}
+
+button:disabled {
+    background-color: #babeb3 !important;
 }
 
 #button-create {
