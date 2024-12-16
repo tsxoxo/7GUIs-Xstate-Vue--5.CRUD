@@ -12,7 +12,7 @@
     font-weight: 400;
     --app: #babeb3;
     --frame: #d5dcc7;
-    --input-unfocused-bg: #eef0e4;
+    --input-unfocused-bg: #e6e9da;
     --input-focused-bg: #fcffef;
     --input-focused-outline: #cc9b39;
     --input-text: hsla(84 25% 16% 0.8);
@@ -69,6 +69,9 @@ main {
     width: 288px;
     padding: 8px 16px;
     background-color: var(--frame);
+
+    box-shadow: 0px 8px 1px -1px #7a7e6f;
+    border-radius: 1px;
 }
 
 #inputs-and-display {
@@ -89,6 +92,8 @@ input {
     background: var(--input-unfocused-bg);
     padding: 8px 12px;
     border: none;
+
+    box-shadow: inset 1px 1px 0px #c1c7b4, inset 0px -1px 0px #eef2e4;
 }
 
 input:focus {
@@ -114,8 +119,21 @@ input:focus {
     gap: 2px;
     background: var(--display-bg);
     overflow: auto;
-    scrollbar-color: var(--display-scrollbar-thumb)
-        var(--display-scrollbar-track);
+    /* scrollbar-color: var(--display-scrollbar-thumb)
+        var(--display-scrollbar-track); */
+    box-shadow: inset 0px -2px 8px -3px #12180b;
+    border-radius: 8px;
+}
+
+#display::-webkit-scrollbar-thumb {
+    background-color: var(--display-text);
+    border: 4px solid transparent;
+    border-radius: 8px;
+    background-clip: padding-box;
+}
+
+#display::-webkit-scrollbar {
+    width: 16px;
 }
 
 #display:focus {
@@ -157,6 +175,8 @@ button {
     padding: 10px 12px;
     color: var(--button-text);
     border: none;
+    box-shadow: 0px 2px 0px #9d9f99;
+    border-radius: 2px;
 }
 
 button:focus {
