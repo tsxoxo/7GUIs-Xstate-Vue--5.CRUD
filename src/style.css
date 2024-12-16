@@ -1,3 +1,22 @@
+@font-face {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    src: url(../public/fonts/Inter-Regular.woff2) format("woff2");
+}
+@font-face {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+    src: url(../public/fonts/Inter-Bold.woff2) format("woff2");
+}
+@font-face {
+    font-family: "Roboto Mono";
+    font-style: normal;
+    font-weight: 400;
+    src: url(../public/fonts/RobotoMono-Regular.ttf) format("woff2");
+}
+
 *,
 *::before,
 *::after {
@@ -91,8 +110,8 @@ label {
 }
 
 input {
-    font-family: inherit;
-    font-weight: bold;
+    font-family: Inter, sans-serif;
+    font-weight: 700;
     background: var(--input-unfocused-bg);
     padding: 8px 12px;
     border: none;
@@ -116,28 +135,34 @@ input:focus {
     font-size: inherit;
     cursor: inherit;
     line-height: inherit;
+    height: auto;
     flex: 1 1 auto;
     padding: 8px;
     display: flex;
     flex-direction: column;
     gap: 2px;
     background: var(--display-bg);
+    background-clip: border-box;
     overflow: auto;
     /* scrollbar-color: var(--display-scrollbar-thumb)
         var(--display-scrollbar-track); */
     box-shadow: inset 0px -2px 8px -3px #12180b;
-    border-radius: 8px;
+    border-radius: 4px;
 }
 
 #display::-webkit-scrollbar-thumb {
     background-color: var(--display-text);
     border: 4px solid transparent;
-    border-radius: 8px;
+    border-radius: 4px;
     background-clip: padding-box;
 }
 
 #display::-webkit-scrollbar {
     width: 16px;
+}
+#display::-webkit-scrollbar-corner {
+    background-color: var(--display-bg-base);
+    border-radius: 8px;
 }
 
 #display:focus {
