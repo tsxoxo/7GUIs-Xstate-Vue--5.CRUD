@@ -23,6 +23,19 @@ const filteredNames = computed(
     return snapshot.value.context.people.filter((person) => person.surname.toLowerCase().startsWith(filter.value.toLowerCase()))
   }
 )
+const sortPersonsBySurnameThenName = (a: Person, b: Person) => {
+  if (a.surname.localeCompare(b.surname) < 0) return -1;
+  if (a.surname.localeCompare(b.surname) > 0) return 1;
+  // 👇 surnames are identical
+  if (a.name.localeCompare(b.name) < 0) return -1;
+  if (a.name.localeCompare(b.name) > 0) return 1;
+  return 0;
+}
+const sortedNames = computed(
+  () => {
+    return snapshot.value.context.people.toSorted(sortPersonsBySurnameThenName())
+  }
+)
 
 const surname = ref('')
 const name = ref('')
@@ -59,8 +72,9 @@ watch(selectedPerson, newValue => {
       </div>
       <select v-model="selectedPerson" id="display" name="people" size="9">
         <!-- <option disabled value=""deselected"">Please select one</option> -->
-        <option v-for="(person) in filteredNames" :value="person"> {{ person.surname }}, {{
-          person.name }} </option>
+        <option v-for="(person) in filteredNames.toSorted(sortPersonsBySurnameThenName)" :value="person"> {{
+          person.surname }}, {{
+            person.name }} </option>
       </select>
       <div id="surname-and-name">
         <label>
