@@ -24,23 +24,23 @@ const INITIAL_PEOPLE: Person[] = [
     id: 3,
   },
   {
-    name: "Emeterius",
-    surname: "Annette",
+    name: "Annette",
+    surname: "Emeterius",
     id: 4,
   },
   {
-    name: "Hiacynta",
-    surname: "Fritiof",
+    name: "Fritiof",
+    surname: "Hiacynta",
     id: 5,
   },
   {
-    name: "Hampus",
-    surname: "Paavo",
+    name: "Paavo",
+    surname: "Hampus",
     id: 6,
   },
   {
-    name: "Von Ingersleben",
-    surname: "Phuntso",
+    name: "Phuntso",
+    surname: "Von Ingersleben",
     id: 7,
   },
   {
