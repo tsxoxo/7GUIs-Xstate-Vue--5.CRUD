@@ -5,6 +5,7 @@ import { createBrowserInspector } from '@statelyai/inspect'
 import { computed, ref, watch } from 'vue'
 import type { Ref } from 'vue'
 import type { Person } from './types'
+import { log } from 'xstate'
 
 const { inspect } = createBrowserInspector({
   // Comment out the line below to start the inspector
@@ -31,11 +32,6 @@ const sortPersonsBySurnameThenName = (a: Person, b: Person) => {
   if (a.name.localeCompare(b.name) > 0) return 1;
   return 0;
 }
-const sortedNames = computed(
-  () => {
-    return snapshot.value.context.people.toSorted(sortPersonsBySurnameThenName())
-  }
-)
 
 const surname = ref('')
 const name = ref('')
@@ -58,6 +54,8 @@ watch(selectedPerson, newValue => {
 
   surname.value = (newValue as Person)!.surname
   name.value = (newValue as Person).name
+  console.log(selectedPerson.value);
+
 })
 </script>
 
@@ -67,7 +65,7 @@ watch(selectedPerson, newValue => {
       <div id="filter">
         <label>
           Filter prefix
-          <input v-model="filter" type="text" name="filter" />
+          <input v-model="filter" @input="() => { selectedPerson = 'deselected' }" type="text" name="filter" />
         </label>
       </div>
       <select v-model="selectedPerson" id="display" name="people" size="2">
@@ -106,9 +104,3 @@ watch(selectedPerson, newValue => {
     </div>
   </main>
 </template>
-
-<!-- TODO
-* add fonts
-* add shadows
-* check states: disabled -- focused, etc.  
--->
