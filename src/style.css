@@ -10,24 +10,26 @@
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
     font-weight: 400;
-    --color-app: #babeb3;
-    --color-frame: #d5dcc7;
-    --color-input-bg: #eef0e4;
-    --color-input-text: hsla(84 25% 16% 0.8);
-    --color-display-bg: #24281e;
+    --app: #babeb3;
+    --frame: #d5dcc7;
+    --input-unfocused-bg: #eef0e4;
+    --input-focused-bg: #fcffef;
+    --input-focused-outline: #cc9b39;
+    --input-text: hsla(84 25% 16% 0.8);
+    --display-bg-base: #24281e;
     --display-bg: linear-gradient(
             180deg,
             rgba(60, 82, 31, 0.2) 0%,
             rgba(91, 118, 58, 0.2) 5.11%,
             rgba(39, 57, 16, 0.2) 100%
         ),
-        var(--color-display-bg);
-    --color-display-text: #9eba5f;
-    --color-button-text: var(--color-input-bg);
-    --color-create-button-bg: #659263;
-    --color-update-button-bg: #6a9eaa;
-    --color-delete-button-bg: #dc7365;
-    --color-delete-button-text: #4b4f44;
+        var(--display-bg-base);
+    --display-text: #9eba5f;
+    --button-text: var(--input-unfocused-bg);
+    --create-button-bg: #659263;
+    --update-button-bg: #6a9eaa;
+    --delete-button-bg: #dc7365;
+    --delete-button-text: #4b4f44;
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -40,8 +42,8 @@ body {
     margin: 0;
     min-width: 320px;
     min-height: 100vh;
-    background: var(--color-app);
-    color: var(--color-input-text);
+    background: var(--app);
+    color: var(--input-text);
 }
 
 .center-children {
@@ -63,7 +65,7 @@ main {
     height: 517px;
     width: 288px;
     padding: 8px 16px;
-    background-color: var(--color-frame);
+    background-color: var(--frame);
 }
 
 #inputs-and-display {
@@ -81,9 +83,14 @@ label {
 }
 
 input {
-    background: var(--color-input-bg);
+    background: var(--input-unfocused-bg);
     padding: 8px 12px;
     border: none;
+}
+
+input:focus {
+    background-color: var(--input-focused-bg);
+    outline: 4px solid var(--input-focused-outline);
 }
 
 #display {
@@ -107,23 +114,20 @@ input {
 }
 
 #display:focus {
-    outline: none;
+    outline: 6px solid color-mix(in srgb, var(--display-text) 80%, #000);
 }
 
 option {
     padding: 4px;
-    color: var(--color-display-text);
+    color: var(--display-text);
 }
 
 option:checked,
 option:focus,
 option:focus-visible,
 option:active {
-    /* background-color: var(--color-display-text); */
-    background: linear-gradient(
-        var(--color-display-text),
-        var(--color-display-text)
-    );
+    /* background-color: var(--display-text); */
+    background: linear-gradient(var(--display-text), var(--display-text));
     color: rgb(16, 16, 16) !important;
 }
 
@@ -144,10 +148,14 @@ option:active {
 }
 
 button {
-    /* background: var(--color-create-button-bg); */
+    /* background: var(--create-button-bg); */
     padding: 10px 12px;
-    color: var(--color-button-text);
+    color: var(--button-text);
     border: none;
+}
+
+button:focus {
+    outline: 4px solid var(--input-focused-outline);
 }
 
 button:disabled {
@@ -155,16 +163,24 @@ button:disabled {
 }
 
 #button-create {
-    background-color: var(--color-create-button-bg);
+    background-color: var(--create-button-bg);
+}
+#button-create:focus {
+    outline: 4px solid color-mix(in srgb, var(--create-button-bg) 80%, #000);
 }
 #button-update {
-    background-color: var(--color-update-button-bg);
+    background-color: var(--update-button-bg);
+}
+#button-update:focus {
+    outline: 4px solid color-mix(in srgb, var(--update-button-bg) 80%, #000);
 }
 #button-delete {
-    background-color: var(--color-delete-button-bg);
-    color: var(--color-delete-button-text);
+    background-color: var(--delete-button-bg);
+    color: var(--delete-button-text);
 }
-
+#button-delete:focus {
+    outline: 4px solid color-mix(in srgb, var(--delete-button-bg) 75%, #000);
+}
 /* Initial, grid-based design as shown on screenshot in 7GUIs instructions */
 /* main {
   padding: 32px;
